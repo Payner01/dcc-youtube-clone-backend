@@ -47,6 +47,8 @@ def update_comment(request, pk):
         serializer = CommentSerializer(comment)
         return Response(serializer.data)
 
+
+@api_view
 # class CommentList(APIView):
 
 #     permission_classes = [AllowAny]
