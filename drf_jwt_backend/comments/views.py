@@ -48,11 +48,23 @@ def update_comment(request, pk):
         return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_comment_replies(request, pk):
     replies = Reply.objects.filter(comment_id = pk)
     serializer = ReplySerializer(replies, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_comment_replies(request, pk):
+    if request.method == 'POST':
+        replies = Reply.objects.filter(comment_id = pk)
+        serializer = ReplySerializer(replies, data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
