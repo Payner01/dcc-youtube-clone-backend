@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
+
 from .models import Comment, Reply
 from .serializers import CommentSerializer, ReplySerializer
 from django.contrib.auth.models import User
@@ -56,10 +57,9 @@ def get_comment_replies(request, pk):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def create_comment_replies(request, pk):
+def create_comment_replies(request):
     if request.method == 'POST':
-        replies = Reply.objects.filter(comment_id = pk)
-        serializer = ReplySerializer(replies, data=request.data)
+        serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

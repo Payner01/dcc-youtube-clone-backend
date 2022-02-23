@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.create_post),
     path('editcomments/<int:pk>/', views.update_comment),
     path('commentsreplies/<int:pk>/', views.get_comment_replies),
-    path('commentreply/<int:pk>/', views.create_comment_replies)
+    path('commentreply/', views.create_comment_replies)
 
 ]
