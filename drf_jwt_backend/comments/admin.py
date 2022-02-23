@@ -1,8 +1,9 @@
 import imp
 from django.contrib import admin
-from .models import Comments, Reply
+from .models import Comment, Reply
 # Register your models here.
 
-admin.site.register(Comments, Reply)
+admin.site.register(Comment)
+admin.site.register(Reply)
 
 
