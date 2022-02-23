@@ -32,7 +32,20 @@ def create_post(request):
         return Response(serializer.data)
 # Create your views here.
 
-
+@api_view(['GET','PUT'])
+@permission_classes([IsAuthenticated])
+def update_comment(request, pk):
+    if request.method == 'PUT':
+        comment = Comment.objects.get(pk=pk)
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        comment = Comment.objects.get(pk=pk)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
 
 # class CommentList(APIView):
 
