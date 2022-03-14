@@ -5,16 +5,25 @@ services:
     container_name: youtube-backend
     image: youtube-backend
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     ports:
-      - '8081:8000'
+      - '8000:8000'
 
-  # db:
-  #   image: mysql
-  #   ports:
-  #     - '8082:8000'
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root 
-  #   volumes:
-    
+  db:
+    container_name: db
+    image: mysql
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: db 
+    command: --default-authentication-plugin=mysql_native_password
+    # ports:
+    #   - "3306:3306"
+  
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
