@@ -5,10 +5,16 @@ services:
     container_name: youtube-backend
     image: youtube-backend
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/app
-      # - ./node_modules:/node_modules/app/
     ports:
-      - '8081:80'
+      - '8081:8000'
+
+  # db:
+  #   image: mysql
+  #   ports:
+  #     - '8082:8000'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root 
+  #   volumes:
+    
