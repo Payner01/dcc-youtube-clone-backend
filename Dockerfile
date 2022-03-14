@@ -13,5 +13,4 @@ RUN python -m pip install -r requirements.txt
 
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER  appuser
-EXPOSE 8000
-CMD [ "python", "drf_jwt_backend/manage.py", "runserver", "0.0.0.0:3306" ]
+CMD [ "python", "drf_jwt_backend/manage.py", "runserver", "0.0.0.0:8000" ]
