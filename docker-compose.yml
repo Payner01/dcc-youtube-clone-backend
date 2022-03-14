@@ -1,3 +1,14 @@
-version: "3.9"
-   
+version: '3.9'
+
 services:
+  youtube-backend:
+    container_name: youtube-backend
+    image: youtube-backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      # - ./node_modules:/node_modules/app/
+    ports:
+      - '8081:80'
