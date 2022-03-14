@@ -1,6 +1,15 @@
 FROM python:alpine
+
 ENV PYTHONNUMBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+
 WORKDIR /app
-COPY requirements.txt requirments.txt
-RUN pip3 install -r requirments.txt
-COPY . . 
+ADD ./ /app
+
+RUN pip install -r requirements.txt
+RUN python -m pip install -r requirements.txt
+
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER  appuser
+
+CMD [ "python", "main.py" ]
